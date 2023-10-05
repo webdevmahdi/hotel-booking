@@ -1,20 +1,46 @@
 import React, { createContext, useContext, useState } from 'react';
 import './Register.css'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../Provider/AuthProvider';
 // import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Register = () => {
-    
+  let { emailPasswordRegister, userVarification, userName } = useContext(AuthContext);
+  let [error, setError] = useState('');
+
   let registerUser = event => {
     event.preventDefault();
 
     let form = event.target;
     let email = form.email.value;
+    let name = form.name.value;
     let password = form.password.value;
     let confirmPassword = form.confirm.value;
 
-    
+    if (password.length < 8) {
+      return setError('Password should be more than 8 character');
+    }
+    else if (!/([A-Z])\w+/.test(password)) {
+      return setError('Use uppercase character')
+    }
+    else if (password !== confirmPassword) {
+      return setError('Confirm password should match with the password')
+    }
+
+    emailPasswordRegister(email, password)
+      .then(result =>{
+        userVarification(result.user)
+          .then(result => console.log(result))
+          .catch(error => setError(error))
+        
+        userName(result.user, name)
+        .then(result => {})
+        .catch(error => setError(error))
+        console.log(result)
+        })
+      .catch(error => setError(error));
+
 
 
   }
@@ -26,6 +52,10 @@ const Register = () => {
         <div className='form-control'>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" placeholder='Enter email' required />
+        </div>
+        <div className='form-control'>
+          <label htmlFor="name">Name</label>
+          <input type="Text" name="name" placeholder='Enter name' required />
         </div>
         <div className='form-control'>
           <label htmlFor="password">Password</label>
@@ -49,6 +79,7 @@ const Register = () => {
         </svg>
         <span>Continue with google</span>
       </button>
+      <p>{error}</p>
     </div>
   )
 }
