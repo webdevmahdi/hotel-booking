@@ -6,6 +6,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Register = () => {
+  let [show, setShow] = useState(false);
   let { emailPasswordRegister, userVarification, userName } = useContext(AuthContext);
   let [error, setError] = useState('');
 
@@ -31,7 +32,7 @@ const Register = () => {
     emailPasswordRegister(email, password)
       .then(result =>{
         userVarification(result.user)
-          .then(result => console.log(result))
+          .then(result => {})
           .catch(error => setError(error))
         
         userName(result.user, name)
@@ -41,7 +42,7 @@ const Register = () => {
         })
       .catch(error => setError(error));
 
-
+        form.reset()
 
   }
 
@@ -59,12 +60,17 @@ const Register = () => {
         </div>
         <div className='form-control'>
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" placeholder='Enter password' required />
+          <input type={show ? "text" : "password"} name="password" placeholder='Enter password' required />
         </div>
         <div className='form-control'>
           <label htmlFor="confirm">Confirm password</label>
-          <input type="password" name="confirm" placeholder='Enter password' required />
+          <input type={show ? "text" : "password"} name="confirm" placeholder='Enter password' required />
         </div>
+        <p className='toggle-password' onClick={() => setShow(!show)}>
+          {
+            show ? "Hide password" : "Show password"
+          }
+        </p>
         <input className='submit' type="submit" value="Sign up" />
       </form>
       <p className='account'>Already have an account?<Link to='/login'>Log in</Link></p>

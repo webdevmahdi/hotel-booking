@@ -1,9 +1,14 @@
 .header{
     display: flex;
     margin-left: 32%;
-    top: 30px;
+    background-color: aliceblue;
+    top: 0px;
 }
-.header a {
+.user-information{
+    display: flex;
+
+}
+.header a, .user-information p{
     padding: 10px 20px 10px 20px;
     margin: 30px;
     color: black;

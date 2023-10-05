@@ -45,6 +45,11 @@
     color: #95A0A7;
 }
 
+.toggle-password{
+    cursor: pointer;
+    font-family: lato;
+}
+
 .submit {
     width: 423px;
     height: 55px;

@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 
 
 const Login = () => {
-    
+  let [show, setShow] = useState(false);
+
+    let handleReset = event => {
+      console.log('running')
+    }
 
   return (
     <div className="form-parent">
@@ -17,8 +21,18 @@ const Login = () => {
         </div>
         <div className='form-control'>
           <label htmlFor="password">Password</label>
-          <input type="password" name="password" placeholder='Enter password' required />
+          <input type={show ? "text" : "password"} name="password" placeholder='Enter password' required />
         </div> 
+        <div className='passwordOperation'>
+          
+        <p className='toggle-password' onClick={() => setShow(!show)}>
+          {
+            show ? "Hide password" : "Show password"
+          }
+        </p>
+        <p onClick={handleReset}>Reset password</p>
+        </div>
+
         <input className='submit' type="submit" value="Sign up" />
       </form>
       <p className='account'>New to Ema-john?<Link to='/register'>Create an account</Link></p>

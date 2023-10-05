@@ -1,0 +1,7 @@
+.passwordOperation{
+    font-family: lato;
+    justify-content: space-between;
+    display: flex;
+    cursor: pointer;
+    color: black;
+}
