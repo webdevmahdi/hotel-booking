@@ -1,0 +1,13 @@
+.header{
+    display: flex;
+    margin-left: 32%;
+    top: 30px;
+}
+.header a {
+    padding: 10px 20px 10px 20px;
+    margin: 30px;
+    color: black;
+    background-color: rgba(0, 47, 255, 0.3);
+    text-decoration: none;
+    text-transform: uppercase;
+}
