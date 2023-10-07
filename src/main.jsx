@@ -6,12 +6,19 @@ import Main from './Components/Main/Main.jsx'
 import Register from './Components/Register/Register.jsx'
 import Login from './Components/Login/Login'
 import AuthProvider from './Components/Provider/AuthProvider'
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
 
 let router = createBrowserRouter([
   {
     path: '/',
     element: <Main></Main>,
     children: [
+      {
+        path: '/',
+        element: <PrivateRoute>
+          <Home></Home>
+        </PrivateRoute>
+      },
       {
         path: '/register',
         element: <Register></Register>
