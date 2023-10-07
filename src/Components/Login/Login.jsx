@@ -1,18 +1,34 @@
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import './Login.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { sendPasswordResetEmail } from 'firebase/auth';
 // import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Login = () => {
-  let { googleRegister, auth, user } = useContext(AuthContext);
+  let { googleRegister, auth, user, userLogin } = useContext(AuthContext);
   let [show, setShow] = useState(false);
   let [massage, setMassage] = useState('');
   let [error, setError] = useState('');
   let emailRef = useRef();
   let navigate = useNavigate();
+  let location = useLocation();
+  
+  console.log(user);
+
+  let lastPath = location.state?.from?.pathname || '/';
+
+  let handleSignIn = event => {
+    let form = event.target;
+    let email = form.email.value;
+    let password = form.password.value;
+
+    userLogin(email, password)
+    .then(result => {} )
+    .catch(error => setError(error))
+  }
+
 
     let handleReset = () => {
       let loginEmail = emailRef.current.value;
@@ -22,14 +38,14 @@ const Login = () => {
       }
       sendPasswordResetEmail(auth, loginEmail)
       .then(result => alert('Please check your Email'))
-      .catch(err => console.log(err))
+      .catch(err => setError(err))
     }
 
   let handleGoogleSignIn = () => {
     googleRegister()
       .then(res => {
         setMassage('Your login has been successful.');
-        navigate('/')
+        navigate(lastPath, {replace: true})
       })
       .catch(err => setError('Please try again'))
   }
@@ -37,7 +53,7 @@ const Login = () => {
   return (
     <div className="form-parent">
       <h2 className='form-title'>Login</h2>
-      <form>
+      <form onSubmit={handleSignIn}>
         <div className='form-control'>
           <label htmlFor="email">Email</label>
           <input type="email" name="email" ref={emailRef} placeholder='Enter email' required />
@@ -56,7 +72,7 @@ const Login = () => {
           <p onClick={handleReset}>Reset password</p>
         </div>
 
-        <input className='submit' type="submit" value="Sign up" />
+        <input className='submit' type="submit" value="Sign in" />
       </form>
       <p className='account'>New to Ema-john?<Link to='/register'>Create an account</Link></p>
       <div className="break">

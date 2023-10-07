@@ -1,14 +1,15 @@
 import React, { createContext, useContext, useState } from 'react';
 import './Register.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 // import { AuthContext } from '../Provider/AuthProvider';
 
 
 const Register = () => {
   let [show, setShow] = useState(false);
-  let { emailPasswordRegister, userVarification, userName, googleRegister } = useContext(AuthContext);
+  let { emailPasswordRegister, userVerification, userName, googleRegister } = useContext(AuthContext);
   let [error, setError] = useState('');
+  let navigate = useNavigate();
 
   let registerUser = event => {
     event.preventDefault();
@@ -31,24 +32,24 @@ const Register = () => {
 
     emailPasswordRegister(email, password)
       .then(result =>{
-        userVarification(result.user)
+        userVerification(result.user)
           .then(result => {})
           .catch(error => setError(error))
         
         userName(result.user, name)
         .then(result => {})
         .catch(error => setError(error))
-        console.log(result)
         })
       .catch(error => setError(error));
 
-        form.reset()
+      navigate('/')
+        form.reset();
 
   }
 
       let registerWithGoogle = () => {
         googleRegister()
-        .then(result => console.log(result))
+        .then(result => {} )
         .catch(err => setError(err))
       }
 
@@ -78,7 +79,7 @@ const Register = () => {
             show ? "Hide password" : "Show password"
           }
         </p>
-        <input className='submit' type="submit" value="Sign up" />
+        <input className='submit' type="submit" value="Register" />
       </form>
       <p className='account'>Already have an account?<Link to='/login'>Log in</Link></p>
       <div className="break">

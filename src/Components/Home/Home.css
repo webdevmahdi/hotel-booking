@@ -1,0 +1,49 @@
+nav {
+    display: flex;
+    background-image: url('../../assets/navPhoto.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.page-tittle{
+    color: wheat;
+    position: absolute;
+    display: block;
+    justify-content: center;
+    align-items: center;
+}
+.welcome-massage {
+    position: relative;
+    top: 50px;
+    font-size: 25px;
+    color: wheat;
+    background-color: rgba(18, 18, 51, 0.425);
+}
+main{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    margin-left: 50px;
+}
+.room-1, .room-2, .room-3 {
+    position: relative;
+    width: 300px;
+    text-align: justify;
+}
+.room-1 img, .room-2 img, .room-3 img {
+    width: 300px;
+    height: auto;
+}
+.room-1 div, .room-2 div, .room-3 div {
+    display: flex;
+    justify-content: space-between;
+}
+.room-1 div p, .room-2 div p, .room-3 div p{
+    margin: 10px;
+    font-stretch: extra-expanded;
+}

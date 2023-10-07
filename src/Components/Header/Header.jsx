@@ -9,7 +9,7 @@ const Header = () => {
   let signOut = () => {
     signOutUser()
     .then(result => {})
-    .catch(error => console.log(error))
+    .catch(error => {})
   }
 
   return (

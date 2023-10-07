@@ -7,6 +7,7 @@ import Register from './Components/Register/Register.jsx'
 import Login from './Components/Login/Login'
 import AuthProvider from './Components/Provider/AuthProvider'
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute'
+import Home from './Components/Home/Home'
 
 let router = createBrowserRouter([
   {
